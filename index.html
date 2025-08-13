@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nội dung ẩn/hiện</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      background: #fff;
+    }
+    .hidden {
+      text-align: center;
+      color: #999;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  // ======= CHỈ SỬA Ở ĐÂY =======
+  let status = "on"; // "on" để hiển thị, "off" để ẩn
+  // ============================
+
+  if (status === "on") {
+    document.write(`
+      <h2>Nội dung bí mật</h2>
+      <p>Đây là phần nội dung chỉ hiển thị khi admin bật.</p>
+      <p>Bạn có thể chèn HTML, ảnh, video ở đây.</p>
+    `);
+  } else {
+    document.write(`<div class="hidden">Nội dung này đang bị ẩn</div>`);
+  }
+</script>
+
+</body>
+</html>
