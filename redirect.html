@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chuyển Hướng</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #140055;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        
+        .loading {
+            text-align: center;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        #overlay-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: white;
+            display: none;
+        }
+        
+        #overlay-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10000;
+        }
+        
+        .close-btn:hover {
+            background: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <h2>Đang tải trang...</h2>
+        <div class="spinner"></div>
+        <p>Trang sẽ được load trong vài giây</p>
+    </div>
+    
+    <div id="overlay-container">
+        <iframe id="overlay-iframe" src="index.html"></iframe>
+    </div>
+
+    <script>
+        // Tự động load trang index.html sau 2 giây
+        setTimeout(() => {
+            loadIndexPage();
+        }, 2000);
+        
+        function loadIndexPage() {
+            // Ẩn loading
+            document.querySelector('.loading').style.display = 'none';
+            
+            // Hiển thị overlay container
+            const overlay = document.getElementById('overlay-container');
+            overlay.style.display = 'block';
+            
+            // Load trang index.html vào iframe
+            const iframe = document.getElementById('overlay-iframe');
+            iframe.src = 'index.html';
+        }
+        
+        function closeOverlay() {
+            // Ẩn overlay và hiển thị lại loading
+            document.getElementById('overlay-container').style.display = 'none';
+            document.querySelector('.loading').style.display = 'flex';
+            
+            // Reload trang sau 1 giây
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+        
+        // Cách 2: Sử dụng fetch để load nội dung (uncomment để sử dụng)
+        /*
+        function loadIndexContent() {
+            fetch('index.html')
+                .then(response => response.text())
+                .then(html => {
+                    // Thay thế toàn bộ nội dung trang
+                    document.documentElement.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Lỗi khi load trang:', error);
+                    document.body.innerHTML = '<h1>Lỗi khi tải trang</h1>';
+                });
+        }
+        */
+    </script>
+</body>
+</html>
